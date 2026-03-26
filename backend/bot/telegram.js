@@ -7,11 +7,45 @@ require('dotenv').config();
 const token = process.env.TELEGRAM_BOT_TOKEN;
 const bot = new TelegramBot(token, { polling: true });
 
-// Command: /start
+// Handle /start command
 bot.onText(/\/start/, (msg) => {
+    bot.sendMessage(msg.chat.id, `
+👋 Welcome to Resume Analyzer Bot!
+
+📄 Upload your resume (PDF/DOCX)
+📝 Then send job description
+
+I’ll analyze and give:
+✅ Match Score
+✅ Missing Skills
+✅ Improvements
+✅ Resume Rating
+✅ Improved PDF Resumes
+    `);
+});
+
+// Handle /help command
+bot.onText(/\/help/, (msg) => {
+    bot.sendMessage(msg.chat.id, `
+📌 How to use:
+
+1️⃣ Upload your resume
+2️⃣ Send job description
+3️⃣ Get AI analysis
+
+Commands:
+/start - Start bot
+/help - Instructions
+/reset - Clear data
+/analyze - Analyze manually
+    `);
+});
+
+// Handle /reset command
+bot.onText(/\/reset/, (msg) => {
     const chatId = msg.chat.id;
     analysisService.clearState(chatId);
-    bot.sendMessage(chatId, "Welcome to the Resume Analyzer Bot! 🤖\n\n1️⃣ Send your resume as a PDF or DOCX file.\n2️⃣ Then send the job description as text.\n\nI'll analyze them and give you feedback! 🚀");
+    bot.sendMessage(chatId, "🧹 Your data has been cleared. You can now upload a new resume.");
 });
 
 // Command: /analyze (manual trigger)
@@ -109,10 +143,7 @@ bot.on('message', async (msg) => {
             if (result.pdfs && result.pdfs.length > 0) {
                 bot.sendMessage(chatId, "📄 Here are your improved resume versions:");
                 for (const pdf of result.pdfs) {
-                    await bot.sendDocument(chatId, pdf.path, { 
-                        caption: pdf.name,
-                        contentType: 'application/pdf' // Fix deprecation warning
-                    });
+                    await bot.sendDocument(chatId, pdf.path, { caption: pdf.name }, { contentType: 'application/pdf' });
                 }
             }
         } catch (error) {

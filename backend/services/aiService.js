@@ -20,6 +20,9 @@ Please structure your response into the following SECTIONS, each starting with t
 
 IMPORTANT: For SECTION 4 and SECTION 5, do NOT use any Markdown formatting like bolding (**), italics, or code blocks (triple backticks). Use plain text with CAPITALIZED headers and clear spacing, making it look like a professional recruiter-friendly resume.
 
+SECTION 0: Resume Rating
+(Give a rating out of 10 based on overall quality and impact)
+
 SECTION 1: Match Score
 SECTION 2: Missing Skills
 SECTION 3: Improvements

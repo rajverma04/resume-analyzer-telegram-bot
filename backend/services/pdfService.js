@@ -32,7 +32,7 @@ async function generateResumePDF(text, fileName) {
     let isFirstLine = true;
 
     for (let line of lines) {
-        line = line.trim();
+        line = line.trim().replace(/```/g, '').replace(/`/g, '');
         if (!line) {
             doc.moveDown(0.5);
             continue;
@@ -49,7 +49,8 @@ async function generateResumePDF(text, fileName) {
         // Header Formatting (e.g., Name or Section Titles)
         if (isFirstLine) {
             // Assume first line is the name
-            const name = line.replace(/^\*\*|\*\*$/g, '');
+            const name = line.replace(/^\*\*|\*\*$/g, '').trim();
+            if (!name) continue; // Skip if line was just backticks
             doc.fontSize(20).font('Helvetica-Bold').fillColor('#333333').text(name, { align: 'center' });
             doc.moveDown(0.5);
             isFirstLine = false;
