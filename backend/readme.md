@@ -2,6 +2,8 @@
 
 A powerful Telegram bot that analyzes resumes against job descriptions using Google Gemini AI and provides professional feedback along with tailored resume versions.
 
+**Try it on Telegram**: [@HireSensei_bot](https://t.me/HireSensei_bot)
+
 ## 🌟 Features
 
 - **Multi-Format Support**: Analyzes both PDF and DOCX resumes.
